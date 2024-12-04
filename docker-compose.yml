@@ -34,6 +34,7 @@ services:
         #     timeout: 5s     # Timeout if it takes longer than x  seconds
         #     retries: 5      # Mark unhealthy after 3 consecutive failures
     node:
+        container_name: node
         build:
             context: .
             target: node

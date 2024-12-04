@@ -19,7 +19,7 @@ restart: stop start ## Restart all containers
 ssh: ## SSH into PHP container
 	docker exec -it ${CONTAINER_PHP} sh
 node-ssh: ## SSH into Node container
-	docker exec ${CONTAINER_NODE} sh
+	docker exec -it ${CONTAINER_NODE} sh
 migrate: ## Run migration files
 	docker exec ${CONTAINER_PHP} php artisan migrate
 migrate-fresh: ## Clear database and run all migrations

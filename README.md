@@ -28,3 +28,11 @@ DB_PASSWORD=secret
 Or adjust the docker-compose.yml accordingly.
 
 I also added an optional Makefile that contains commands to build and start containers. See Makefile or in your terminal write `make` to see list of commands. If you adjusted the container name inside the `docker-compose.yml` make sure to adjust the `CONTAINER_PHP=api` inside the Makefile.
+
+
+
+AFTER CLONE
+WSL >
+    docker compose build --no-cache; docker compose up --force-recreate -d
+    docker compose ps
+        3 containers should run
