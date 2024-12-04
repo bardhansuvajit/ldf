@@ -1,0 +1,45 @@
+services:
+    api:
+        container_name: api
+        build:
+            context: .
+            target: php
+            args:
+                - APP_ENV=${APP_ENV}
+        environment:
+            - APP_ENV=${APP_ENV}
+        volumes:
+            - ./:/app
+        ports:
+            - 9000:8080
+        depends_on:
+            - database_mysql
+            # database_mysql:
+            #     condition: service_healthy
+    database_mysql:
+        container_name: database_mysql
+        image: mysql:8.0
+        ports:
+            - 3306:3306
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_USER=${DB_USERNAME}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+        volumes:
+            - db-data:/var/lib/mysql
+        # healthcheck:
+        #     test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u laravel -psecret || exit 1"]
+        #     interval: 3s    # Check every x seconds
+        #     timeout: 5s     # Timeout if it takes longer than x  seconds
+        #     retries: 5      # Mark unhealthy after 3 consecutive failures
+    node:
+        build:
+            context: .
+            target: node
+        volumes:
+            - .:/usr/src
+            - ./node_modules:/usr/src/node_modules
+        tty: true
+volumes:
+    db-data:
